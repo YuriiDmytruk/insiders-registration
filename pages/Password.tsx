@@ -5,15 +5,14 @@ import { RootStackParamList } from '../types';
 import { useDispatch } from 'react-redux';
 import { updatePassword } from '../redux/slices/userInfoSlice';
 
-// Import icons
 const showIcon = require('../assets/show.png');
 const hideIcon = require('../assets/hide.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Password'>;
 
 const Password: React.FC<Props> = ({ navigation }) => {
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('1234');
+  const [confirmPassword, setConfirmPassword] = useState('1234');
   const [securePasswordEntry, setSecurePasswordEntry] = useState(true);
   const [secureConfirmEntry, setSecureConfirmEntry] = useState(true);
   const [isPasswordSame, setIsPasswordSame] = useState(false);
