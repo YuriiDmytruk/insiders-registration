@@ -12,7 +12,7 @@ const CELL_COUNT = 3;
 const VALID_CODE = '111';
 
 const PhoneConfirmation: React.FC<Props> = ({route, navigation}) => {
-  const [confirmationCode, setConfirmationCode] = useState('111');
+  const [confirmationCode, setConfirmationCode] = useState('');
   const [isValid, setIsvalid] = useState(false);
   const dispatch = useDispatch();
 

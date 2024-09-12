@@ -22,8 +22,8 @@ const hideIcon = require('../assets/hide.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'Password'>;
 
 const Password: React.FC<Props> = ({navigation}) => {
-  const [password, setPassword] = useState('1234');
-  const [confirmPassword, setConfirmPassword] = useState('1234');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [securePasswordEntry, setSecurePasswordEntry] = useState(true);
   const [secureConfirmEntry, setSecureConfirmEntry] = useState(true);
   const [isPasswordSame, setIsPasswordSame] = useState(false);

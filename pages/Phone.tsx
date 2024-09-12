@@ -7,8 +7,8 @@ import {RootStackParamList} from '../types';
 type Props = NativeStackScreenProps<RootStackParamList, 'Phone'>;
 
 const Phone: React.FC<Props> = ({navigation}) => {
-  const [phoneNumber, setPhoneNumber] = useState('678080677');
-  const [formatedPhone, setFormatedPhone] = useState('+380678080677');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [formatedPhone, setFormatedPhone] = useState('');
   const [isValid, setIsValid] = useState(false);
 
   const phoneInput = useRef<PhoneInput>(null);
