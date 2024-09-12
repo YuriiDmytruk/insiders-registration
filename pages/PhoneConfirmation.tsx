@@ -25,6 +25,7 @@ const PhoneConfirmation: React.FC<Props> = ({route, navigation}) => {
   const handleConfirm = () => {
     if(isValid){
       dispatch(updatePhone(phone));
+      console.log(phone);
       navigation.navigate('Info');
     }
   };

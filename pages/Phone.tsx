@@ -8,20 +8,23 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Phone'>;
 
 const Phone: React.FC<Props> = ({navigation}) => {
   const [phoneNumber, setPhoneNumber] = useState('678080677');
-  const [formattedPhoneNumber, setFormattedPhoneNumber] = useState('');
+  const [formatedPhone, setFormatedPhone] = useState('+380678080677');
   const [isValid, setIsValid] = useState(false);
 
   const phoneInput = useRef<PhoneInput>(null);
 
   useEffect(() => {
     if (phoneInput.current) {
-      setIsValid(phoneInput.current.isValidNumber(phoneNumber));
+      const isValidNumber = phoneInput.current.isValidNumber(phoneNumber);
+      setIsValid(isValidNumber);
     }
   }, [phoneNumber]);
 
   const handlePress = () => {
     if (isValid) {
-      navigation.navigate('PhoneConfirmation', { phone: formattedPhoneNumber });
+      navigation.navigate('PhoneConfirmation', {phone: formatedPhone});
+    } else {
+      console.log('Phone number is not valid');
     }
   };
 
@@ -33,10 +36,10 @@ const Phone: React.FC<Props> = ({navigation}) => {
         defaultValue={phoneNumber}
         defaultCode="UA"
         layout="first"
-        onChangeText={text => setPhoneNumber(text)}
-        onChangeFormattedText={formattedText =>
-          setFormattedPhoneNumber(formattedText)
-        }
+        onChangeText={text => {
+          setPhoneNumber(text);
+        }}
+        onChangeFormattedText={(text) => setFormatedPhone(text)}
         withDarkTheme={false}
         withShadow
         autoFocus

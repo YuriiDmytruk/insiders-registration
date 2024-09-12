@@ -14,8 +14,6 @@ const UserInfo: React.FC<Props> = ({ navigation }) => {
   const { name, phone, email, image, password } = useSelector((state: RootState) => state.userInfo);
   const [showPassword, setShowPassword] = useState(false);
 
-  console.log({ name, phone, email, image, password });
-
   const generatePassword = () => {
     return showPassword ? password : '*'.repeat(password.length);
   };
