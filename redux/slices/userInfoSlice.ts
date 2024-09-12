@@ -22,6 +22,14 @@ const userInfoSlice = createSlice({
   name: 'userInfo',
   initialState,
   reducers: {
+    setDefault: (state) => {
+      state.name = '';
+      state.email = '';
+      state.password = '';
+      state.phone = '';
+      state.image = '';
+      state.role = 'user';
+    },
     setUserInfo: (state, action: PayloadAction<UserInfoState>) => {
       state.name = action.payload.name;
       state.email = action.payload.email;
@@ -54,6 +62,7 @@ export const {
   updatePassword,
   updatePhone,
   updateImage,
+  setDefault,
 } = userInfoSlice.actions;
 
 export default userInfoSlice.reducer;

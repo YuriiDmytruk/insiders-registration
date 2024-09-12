@@ -1,16 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, TextInput, TouchableOpacity, View, Image } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types';
-import { useDispatch } from 'react-redux';
-import { updatePassword } from '../redux/slices/userInfoSlice';
+import React, {useEffect, useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  Image,
+} from 'react-native';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../types';
+import {useDispatch, useSelector} from 'react-redux';
+import {updatePassword} from '../redux/slices/userInfoSlice';
+import {RootState} from '../redux/store';
+
+import {SUPABASE_URL, SUPABASE_ANON_KEY} from '@env';
+import {createClient} from '@supabase/supabase-js';
 
 const showIcon = require('../assets/show.png');
 const hideIcon = require('../assets/hide.png');
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Password'>;
 
-const Password: React.FC<Props> = ({ navigation }) => {
+const Password: React.FC<Props> = ({navigation}) => {
   const [password, setPassword] = useState('1234');
   const [confirmPassword, setConfirmPassword] = useState('1234');
   const [securePasswordEntry, setSecurePasswordEntry] = useState(true);
@@ -20,10 +31,10 @@ const Password: React.FC<Props> = ({ navigation }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(password === '' || confirmPassword === ''){
+    if (password === '' || confirmPassword === '') {
       setIsPasswordSame(false);
       return;
-    }else{
+    } else {
       setIsPasswordSame(password === confirmPassword);
     }
   }, [password, confirmPassword]);
@@ -37,10 +48,36 @@ const Password: React.FC<Props> = ({ navigation }) => {
   };
 
   const handlePress = () => {
-    if(isPasswordSame){
+    if (isPasswordSame) {
+      registerUser();
       dispatch(updatePassword(password));
       navigation.navigate('UserInfo');
     }
+  };
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const {name, role, email, image, phone} = useSelector(
+    (state: RootState) => state.userInfo,
+  );
+
+  const registerUser = () => {
+    const register = async () => {
+      const {data} = await supabase
+        .from('users')
+        .insert([
+          {
+            name: name,
+            email: email,
+            password: password,
+            phone: phone,
+            image: image,
+            role: role,
+          },
+        ])
+        .select();
+    };
+    register();
   };
 
   return (
@@ -54,7 +91,9 @@ const Password: React.FC<Props> = ({ navigation }) => {
           value={password}
           onChangeText={setPassword}
         />
-        <TouchableOpacity onPress={togglePasswordVisibility} style={styles.icon}>
+        <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={styles.icon}>
           <Image
             source={securePasswordEntry ? showIcon : hideIcon}
             style={styles.iconImage}
@@ -83,8 +122,7 @@ const Password: React.FC<Props> = ({ navigation }) => {
           styles.button,
           isPasswordSame ? styles.buttonValid : styles.buttonNotValid,
         ]}
-        onPress={handlePress}
-      >
+        onPress={handlePress}>
         <Text style={styles.buttonText}>Confirm</Text>
       </TouchableOpacity>
     </View>

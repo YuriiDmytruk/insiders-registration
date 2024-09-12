@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
+import { setDefault } from '../redux/slices/userInfoSlice';
 
 const showIcon = require('../assets/show.png');
 const hideIcon = require('../assets/hide.png');
@@ -16,6 +17,13 @@ const UserInfo: React.FC<Props> = ({ navigation }) => {
 
   const generatePassword = () => {
     return showPassword ? password : '*'.repeat(password.length);
+  };
+
+  const dispatch = useDispatch();
+
+  const handlePress = () => {
+    dispatch(setDefault());
+    navigation.navigate('Welcome');
   };
 
   return (
@@ -43,8 +51,8 @@ const UserInfo: React.FC<Props> = ({ navigation }) => {
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Welcome')}>
-          <Text style={styles.buttonText}>Go to Welcome</Text>
+        <TouchableOpacity style={styles.button} onPress={handlePress}>
+          <Text style={styles.buttonText}>Log Out</Text>
         </TouchableOpacity>
       </View>
     </View>

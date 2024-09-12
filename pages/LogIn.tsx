@@ -9,6 +9,12 @@ import {
 } from 'react-native';
 import {RootStackParamList} from '../types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {createClient} from '@supabase/supabase-js';
+import {useDispatch} from 'react-redux';
+import {setUserInfo} from '../redux/slices/userInfoSlice';
+
+import { SUPABASE_URL, SUPABASE_ANON_KEY } from '@env';
+
 
 const showIcon = require('../assets/show.png');
 const hideIcon = require('../assets/hide.png');
@@ -16,18 +22,53 @@ const hideIcon = require('../assets/hide.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 
 const LogIn: React.FC<Props> = ({navigation}) => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState('roma@gmail.com');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
   const [isValid, setIsValid] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const supabase = createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+  );
+
   useEffect(() => {
-    setIsValid(email !== '' || password !== '');
+    setIsValid(email !== '' && password !== '');
   }, [email, password]);
 
   const handleLogin = () => {
-    console.log('LogIn');
+    const fetchUserByEmail = async () => {
+      const {data: users} = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email);
+      if (users && users.length > 0) {
+        const user = users[0];
+        if (user.password === password) {
+          dispatch(
+            setUserInfo({
+              name: user.name,
+              email: user.email,
+              password: user.password,
+              image: user.image,
+              phone: user.phone,
+              role: user.role,
+            }),
+          );
+          navigation.navigate('UserInfo');
+        } else {
+          console.log('Wrong Password');
+        }
+      } else {
+        console.log('No user found with the provided email.');
+      }
+    };
+    if (isValid) {
+      fetchUserByEmail();
+    }
   };
 
   return (
