@@ -1,20 +1,28 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../types';
 
-const Info = () => {
+type Props = NativeStackScreenProps<RootStackParamList, 'Info'>;
+
+const Info: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Text>Info</Text>
+      <TouchableOpacity onPress={() => navigation.navigate('Password')}>
+        <Text>go to Password</Text>
+      </TouchableOpacity>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      width: '100%',
-      height: '100%',
-      backgroundColor: 'red',
-    },
-  });
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+});
 
 export default Info;
