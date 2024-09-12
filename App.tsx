@@ -16,6 +16,7 @@ import {RootStackParamList} from './types';
 
 import store from './redux/store';
 import LogIn from './pages/LogIn';
+import UsersList from './pages/UsersList';
 
 enableScreens();
 
@@ -47,6 +48,10 @@ function App(): React.JSX.Element {
             name="UserInfo"
             component={UserInfo}
             options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="UsersList"
+            component={UsersList}
           />
           <Stack.Screen name="LogIn" component={LogIn} />
         </Stack.Navigator>

@@ -12,8 +12,10 @@ const hideIcon = require('../assets/hide.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'UserInfo'>;
 
 const UserInfo: React.FC<Props> = ({ navigation }) => {
-  const { name, phone, email, image, password } = useSelector((state: RootState) => state.userInfo);
+  const { name, phone, email, image, password, role } = useSelector((state: RootState) => state.userInfo);
   const [showPassword, setShowPassword] = useState(false);
+
+  console.log(role);
 
   const generatePassword = () => {
     return showPassword ? password : '*'.repeat(password.length);
@@ -24,6 +26,10 @@ const UserInfo: React.FC<Props> = ({ navigation }) => {
   const handlePress = () => {
     dispatch(setDefault());
     navigation.navigate('Welcome');
+  };
+
+  const handleUsersListPress = () => {
+    navigation.navigate('UsersList');
   };
 
   return (
@@ -50,6 +56,12 @@ const UserInfo: React.FC<Props> = ({ navigation }) => {
             <Image source={showPassword ? showIcon : hideIcon} style={styles.icon} />
           </TouchableOpacity>
         </View>
+
+        {role === 'admin' && (
+          <TouchableOpacity style={styles.adminButton} onPress={handleUsersListPress}>
+            <Text style={styles.buttonText}>Users List</Text>
+          </TouchableOpacity>
+        )}
 
         <TouchableOpacity style={styles.button} onPress={handlePress}>
           <Text style={styles.buttonText}>Log Out</Text>
@@ -123,6 +135,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  adminButton: {
+    backgroundColor: '#2196F3',
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    alignSelf: 'center',
+    marginBottom: 20,
   },
 });
 

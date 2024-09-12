@@ -36,6 +36,7 @@ const userInfoSlice = createSlice({
       state.password = action.payload.password;
       state.phone = action.payload.phone;
       state.image = action.payload.image;
+      state.role = action.payload.role;
     },
     updateName: (state, action: PayloadAction<string>) => {
       state.name = action.payload;

@@ -22,8 +22,8 @@ const hideIcon = require('../assets/hide.png');
 type Props = NativeStackScreenProps<RootStackParamList, 'LogIn'>;
 
 const LogIn: React.FC<Props> = ({navigation}) => {
-  const [email, setEmail] = useState('roma@gmail.com');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('yuriydmytrukr@gmail.com');
+  const [password, setPassword] = useState('1234');
   const [showPassword, setShowPassword] = useState(false);
 
   const [isValid, setIsValid] = useState(false);
