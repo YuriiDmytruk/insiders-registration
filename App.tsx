@@ -14,6 +14,7 @@ import UserInfo from './pages/UserInfo';
 import { RootStackParamList } from './types';
 
 import store from './redux/store';
+import LogIn from './pages/LogIn';
 
 enableScreens();
 
@@ -27,9 +28,10 @@ function App(): React.JSX.Element {
         <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }}/>
         <Stack.Screen name="Phone" component={Phone}/>
         <Stack.Screen name="PhoneConfirmation" component={PhoneConfirmation}/>
-        <Stack.Screen name="Info" component={Info}/>
-        <Stack.Screen name="Password" component={Password} options={{ headerShown: false }}/>
+        <Stack.Screen name="Info" component={Info} options={{ headerShown: false }}/>
+        <Stack.Screen name="Password" component={Password}/>
         <Stack.Screen name="UserInfo" component={UserInfo} options={{ headerShown: false }}/>
+        <Stack.Screen name="LogIn" component={LogIn}/>
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>

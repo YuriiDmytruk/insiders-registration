@@ -8,9 +8,19 @@ type Props = NativeStackScreenProps<RootStackParamList, 'Welcome'>;
 const Welcome: React.FC<Props> = ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <Text>Welcome</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('Phone')}>
-        <Text>go to Phone</Text>
+      <Text style={styles.title}>Welcome</Text>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('LogIn')}
+      >
+        <Text style={styles.buttonText}>Log In</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => navigation.navigate('Phone')}
+      >
+        <Text style={styles.buttonText}>Register</Text>
       </TouchableOpacity>
     </View>
   );
@@ -22,6 +32,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+  },
+  title: {
+    fontSize: 24,
+    marginBottom: 20,
+    fontWeight: 'bold',
+  },
+  button: {
+    backgroundColor: '#4CAF50',
+    borderRadius: 10,
+    paddingVertical: 15,
+    paddingHorizontal: 40,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
 

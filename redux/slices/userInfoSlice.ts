@@ -6,6 +6,7 @@ interface UserInfoState {
   password: string;
   phone: string;
   image: string;
+  role: 'user' | 'admin';
 }
 
 const initialState: UserInfoState = {
@@ -14,6 +15,7 @@ const initialState: UserInfoState = {
   password: '',
   phone: '',
   image: '',
+  role: 'user',
 };
 
 const userInfoSlice = createSlice({
