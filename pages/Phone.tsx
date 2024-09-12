@@ -23,8 +23,6 @@ const Phone: React.FC<Props> = ({navigation}) => {
   const handlePress = () => {
     if (isValid) {
       navigation.navigate('PhoneConfirmation', {phone: formatedPhone});
-    } else {
-      console.log('Phone number is not valid');
     }
   };
 
